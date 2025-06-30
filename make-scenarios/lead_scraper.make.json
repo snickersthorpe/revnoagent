@@ -1,0 +1,9 @@
+{
+  "name": "Lead_Scraper",
+  "modules": [
+    { "moduleId": "apollo.searchCompanies", "type": "trigger", "parameters": { "connection": "ApolloConn", "industry": "SaaS", "company_size": "11-100", "location": "United States" } },
+    { "moduleId": "openai.createCompletion", "type": "action", "parameters": { "connection": "OpenAI_Conn", "model": "gpt-4o-mini", "prompt": "Summarize this company: {{1.data}}" } },
+    { "moduleId": "datastore.createRecord", "type": "action", "parameters": { "connection": "Make_DataStore", "table": "leads", "payload": { "name": "{{1.name}}", "company": "{{1.company}}", "pain_point": "{{2.choices[0].text}}" } } }
+  ],
+  "links": [ { "from": 1, "to": 2 }, { "from": 2, "to": 3 } ]
+} 

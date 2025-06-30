@@ -1,0 +1,9 @@
+{
+  "name": "Cold_Email",
+  "modules": [
+    { "moduleId": "datastore.searchRecords", "type": "trigger", "parameters": { "connection": "Make_DataStore", "table": "leads", "filter": "status = 'new'" } },
+    { "moduleId": "openai.createCompletion", "type": "action", "parameters": { "connection": "OpenAI_Conn", "model": "gpt-4o-mini", "prompt": "Write cold email for: {{1.data}}" } },
+    { "moduleId": "gmail.sendEmail", "type": "action", "parameters": { "connection": "Gmail_Conn", "to": "{{1.email}}", "subject": "Automation help for {{1.company}}", "body": "{{2.choices[0].text}}" } }
+  ],
+  "links": [ { "from": 1, "to": 2 }, { "from": 2, "to": 3 } ]
+} 
