@@ -1,0 +1,4 @@
+Summarize company's biggest pain in ≤30 words. Output as:
+{
+"pain_point": "<summary>"
+} 

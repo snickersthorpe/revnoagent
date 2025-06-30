@@ -1,0 +1,4 @@
+Tone: helpful Gen-Z pro, 1 emoji max. Write a 120-word cold email using:
+- lead name
+- company
+- pain_point 
