@@ -1,0 +1,35 @@
+{
+  "name": "Pain Point Extractor Bot",
+  "modules": [
+    {
+      "moduleId": "http.get",
+      "type": "trigger",
+      "parameters": {
+        "url": "{{input.url}}"
+      }
+    },
+    {
+      "moduleId": "openai.createCompletion",
+      "type": "action",
+      "parameters": {
+        "connection": "OpenAI_Conn",
+        "model": "gpt-4o",
+        "prompt": "Summarize this company's biggest pain point in ≤30 words. Return only the pain point.\n\nHTML:\n{{1.data}}",
+        "outputVar": "painPoint"
+      }
+    },
+    {
+      "moduleId": "googlesheets.addRow",
+      "type": "action",
+      "parameters": {
+        "connection": "GoogleSheets_Conn",
+        "sheet": "revno agent data",
+        "values": ["{{input.url}}", "{{2.painPoint}}"]
+      }
+    }
+  ],
+  "links": [
+    { "from": 1, "to": 2 },
+    { "from": 2, "to": 3 }
+  ]
+} 

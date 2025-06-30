@@ -1,0 +1,47 @@
+{
+  "name": "Auto Welcome Email Bot",
+  "modules": [
+    {
+      "moduleId": "gohighlevel.watchContacts",
+      "type": "trigger",
+      "parameters": {
+        "connection": "GHL_Conn",
+        "event": "contact.created"
+      }
+    },
+    {
+      "moduleId": "openai.createCompletion",
+      "type": "action",
+      "parameters": {
+        "connection": "OpenAI_Conn",
+        "model": "gpt-4o",
+        "prompt": "Write a friendly 100-word welcome email to {{{{1.firstName}}}} from Revno.\nTone: helpful, warm, one emoji max.\nMention we'll be in touch soon.",
+        "outputVar": "emailBody"
+      }
+    },
+    {
+      "moduleId": "gohighlevel.sendEmail",
+      "type": "action",
+      "parameters": {
+        "connection": "GHL_Conn",
+        "to": "{{1.email}}",
+        "subject": "Welcome to Revno!",
+        "body": "{{2.emailBody}}"
+      }
+    },
+    {
+      "moduleId": "gohighlevel.createNote",
+      "type": "action",
+      "parameters": {
+        "connection": "GHL_Conn",
+        "contactId": "{{1.id}}",
+        "content": "Sent welcome email"
+      }
+    }
+  ],
+  "links": [
+    { "from": 1, "to": 2 },
+    { "from": 2, "to": 3 },
+    { "from": 3, "to": 4 }
+  ]
+} 

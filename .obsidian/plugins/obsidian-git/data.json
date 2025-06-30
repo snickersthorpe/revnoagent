@@ -1,0 +1,8 @@
+{
+  "autocommit": true,
+  "autopull": true,
+  "autopush": true,
+  "commitmessage": "🤖 Auto-sync from Obsidian",
+  "pullinterval": 10,
+  "disableNotifications": false
+} 
